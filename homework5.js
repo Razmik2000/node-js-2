@@ -1,9 +1,20 @@
+// Գրել ծրագիր որ լատինատառ տեքստը որևէ մոտավորությամբ կսարքի հայատառ:
+// Օրինակ ա տառը կդառնա a:Այդպես բոլոր տառերը: Ստեղծել readStream և highWaterMark:1
+// նշելով բոլոր սիմվոլների վրայով անցնել:Ծրագիրը աշխատացնել homework4Eng.txt համար:
 const fs = require('fs');
-const os = require('os');
-const hw1 = fs.readFileSync('./homework1.js', 'utf-8');
-const hw2 = fs.readFileSync('./homework2.js', 'utf-8');
-const hw3 = fs.readFileSync('./homework3.js', 'utf-8');
-const hw4 = fs.readFileSync('./homework4.js', 'utf-8');
-const d = new Date();
-const name = os.platform() + '_' + d.getHours() + '_' + d.getMinutes() + '_' + d.getSeconds();
-fs.writeFileSync(name + '.txt', hw1 + hw2 + hw3 + hw4);
+const fs1 = require('fs/promises');
+const readable = fs.createReadStream('homework4Eng.txt', {
+    highWaterMark: 1
+});
+readable.on('data', function (chunk) {
+
+    fs1.readFile('./translate.json').then((configBuffer) => {
+        const config = JSON.parse(configBuffer.toString());
+        for(let eng in config){
+            if(chunk.toString()===eng){
+            console.log(config[eng]);
+            }
+        }
+    });
+
+});

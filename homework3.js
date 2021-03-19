@@ -1,16 +1,13 @@
-const os = require("os");
-const fs = require('fs');
-const random = require('random');
-let name = '';
-for (let i = 0; i < 8; i++) {
-    let a = random.int(0, 9);
-    name = name + a.toString();
+const fs = require('fs/promises');
 
-}
-const cups = os.cpus();
-let i = 0;
-for (let a in cups) {
-    i++;
+async function readInput() {
+    const data = await fs.readFile('./input.txt', 'utf-8');
+    await Promise.all([
+        fs.writeFile('outputText1.txt', data.slice(0, data.length / 2)),
+        fs.writeFile('outputText2.txt', data.slice(data.length / 2))
+    ]);
 }
 
-fs.writeFileSync(name + '.txt', i.toString() + ' CPUs');
+readInput().then().catch((err)=>{
+    console.log(err.message);
+});
