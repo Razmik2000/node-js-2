@@ -1,15 +1,16 @@
-// Ստեղծել readStream որը input.txt-ից կկարդա ինֆորմացիան 10 բայթով և կաևտածի կոնսոլում այն chunk-երը ,
-// որոնք հատուկ սիմվոլներ չունեն:
-const fs = require('fs');
-const readable = fs.createReadStream('input.txt', {
-    highWaterMark: 10
-});
+// 4.Ունենք const web=['html','css','js','txt'] զանգվածԳրել ծրագի որ կստեղծի զանգվածի անունով պապկա:
+// Զանգվածի անդամներից այդ պապկայում ստեղծել  ֆայլեր հերթական անդամի անունով և
+// վերջավորությունն էլ նույնը լինի(օրինակ html.html) պարունակություն էլ այդ անդամը:
+const fs = require('fs').promises;
+const web = ['html', 'css', 'js', 'txt'];
 
-readable.on('data', function (chunk) {
+async function file() {
+    await fs.mkdir('./web',);
+    for (let i = 0; i < 4; i++) {
+        await fs.writeFile('./web/' + web[i] + '.' + web[i], web[i]);
+    }
+}
 
-        if (!/[^a-z,A-Z,\s]/g.test(chunk.toString())) {
-            console.log(chunk.toString());
-        }
-
-
+file().then().catch((err) => {
+    console.log(err);
 });

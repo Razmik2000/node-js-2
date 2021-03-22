@@ -1,18 +1,10 @@
-// 1. Ստեղծել Promise վերադարձնող ֆունկցիա , որը գեներացնում է 0 - 10 միջակայքի թիվ և ստուգում ,
-// եթե թիվը փոքր է 5-ից reject է անում , հակառակ դեպքում resolve . Աշխատացնել ֆունկցիան և տպել արժեքները։
-const random = require('random');
-function check (){
-    return new Promise(function (resolve, reject) {
-        let rand = random.int(0, 10);
-        if (rand > 4) {
-            resolve(rand);
-        }else {
-            reject(new Error('Error'));
-        }
-    });
+// 1. Գրել ծրագիր որը կստեղծի ֆայլ Ձեր համակարգչի user անունով և այդ ֆայլում գրել համակարգչի userinfo-ն:
+const fs = require('fs').promises;
+const os = require('os');
+async function userInfo(){
+    await fs.writeFile('user.json',JSON.stringify(os.userInfo()));
 }
-check().then(function (data) {
-    console.log(data);
-}).catch((err) => {
+userInfo().then().catch((err)=>{
     console.log(err.message);
+
 });

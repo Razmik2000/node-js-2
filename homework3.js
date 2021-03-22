@@ -1,13 +1,15 @@
-const fs = require('fs/promises');
+// 3.Գրել ծրագիր, որը կկարդա homework3.txt ֆայլի պարունակությունը,
+// տեքստից կհեռացնի  ստորակետները  և կգրի replace.txt ֆայլում, որից հետո ջնջել homework3.txt ֆայլը:
+const fs = require('fs').promises;
 
-async function readInput() {
-    const data = await fs.readFile('./input.txt', 'utf-8');
-    await Promise.all([
-        fs.writeFile('outputText1.txt', data.slice(0, data.length / 2)),
-        fs.writeFile('outputText2.txt', data.slice(data.length / 2))
-    ]);
+async function replace(){
+    const txt = await fs.readFile('homework3.txt');
+    await fs.writeFile('replace.txt',txt.toString().split(',').join(' '));
+    await fs.unlink('homework3.txt');
+
+
 }
-
-readInput().then().catch((err)=>{
+replace().then().catch((err)=>{
     console.log(err.message);
+
 });
